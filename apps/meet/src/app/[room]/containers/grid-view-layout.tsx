@@ -16,7 +16,7 @@ export const GridViewLayout:FC<Props> = ({renderItem,items}) => {
 
   return (
     <div
-      className={"grid w-screen h-screen duration-300"}
+      className={"grid w-screen h-full max-h-[calc(100vh-65px)] duration-300"}
       style={{
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,

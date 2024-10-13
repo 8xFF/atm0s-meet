@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d43b67d-b3f6-4d84-a230-2baddccf7bea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/meet/src/app/[room]/containers/grid-view-layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/meet/src/app/[room]/containers/meeting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/meet/src/app/[room]/containers/meeting.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="4d43b67d-b3f6-4d84-a230-2baddccf7bea" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +12,31 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feat/grid-layout" />
+                    <option name="lastUsedInstant" value="1728755940" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1728755939" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -24,21 +46,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/tuanna/Workspace/atm0s-meet",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/tuanna/Workspace/atm0s-meet/node_modules/prettier",
-    "ts.external.directory.path": "/Users/tuanna/Workspace/atm0s-meet/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/grid-layout&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tuanna/Workspace/atm0s-meet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/tuanna/Workspace/atm0s-meet/node_modules/prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/tuanna/Workspace/atm0s-meet/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -59,7 +81,8 @@
       <workItem from="1728751079783" duration="352000" />
       <workItem from="1728751437229" duration="845000" />
       <workItem from="1728752297620" duration="205000" />
-      <workItem from="1728752511923" duration="2294000" />
+      <workItem from="1728752511923" duration="8421000" />
+      <workItem from="1728812138861" duration="877000" />
     </task>
     <servers />
   </component>

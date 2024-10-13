@@ -18,7 +18,7 @@ export const SidebarViewLayout: FC<Props> = ({ renderItem, items }) => {
             {renderItem(items?.[0])}
           </div>
 
-          <div className={'overflow-auto'}>
+          <div className={'overflow-auto h-full'}>
             {map(items, (item, index) => {
               return index != 0 && (
                 <div key={index} className={cn('w-full h-36 duration-300', items?.[index+1] && 'mb-4')}>
@@ -43,6 +43,6 @@ export const SidebarViewLayout: FC<Props> = ({ renderItem, items }) => {
   }, [items, renderItem, totalUser])
 
   return (
-    <div className={'grid w-screen h-screen grid-cols-[minmax(auto,_1fr)_220px] gap-4 duration-300 p-4'}>{renderItems}</div>
+    <div className={'grid w-screen h-full max-h-[calc(100vh-65px)] grid-cols-[minmax(auto,_1fr)_220px] gap-4 duration-300 p-4'}>{renderItems}</div>
   )
 }
