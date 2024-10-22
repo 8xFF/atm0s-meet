@@ -15,12 +15,10 @@ export const Username: React.FC<Props> = ({ username }) => {
     removeCookie('username')
     router.push('/settings-username')
   }
+  console.log('username', username)
   return (
     <>
-      Logged in as {username?.value} |{' '}
-      <span className="underline cursor-pointer" onClick={onLogout}>
-        Logout
-      </span>
+      Hello {username?.value}
     </>
   )
 }

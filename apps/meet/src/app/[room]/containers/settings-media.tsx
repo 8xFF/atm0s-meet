@@ -56,7 +56,7 @@ export const SettingsMedia: React.FC<Props> = ({ onConnected, username }) => {
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid gap-2">
-          <div className="text-sm font-medium">Room ID: {params?.room}</div>
+          {/* <div className="text-sm font-medium">Room ID: {params?.room}</div> */}
           <CameraPreview source_name="video_main" />
           {/* <div className="text-sm text-muted-foreground">0 user(s) in the room</div> */}
         </div>

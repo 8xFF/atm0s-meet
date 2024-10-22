@@ -15,8 +15,8 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: '8xFF - Sample Meets',
-  description: 'Sample Meets is a sample application built with 8xFF.',
+  title: 'OMEET',
+  description: 'OMEET - Online Meeting',
 }
 
 export default function RootLayout({

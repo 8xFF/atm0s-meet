@@ -32,7 +32,7 @@ export const BottomBar: React.FC<Props> = ({ meetingLink }) => {
     <div className="w-full relative flex items-center justify-between py-3 border-t pl-4 pr-[calc(16px*2+40px)]">
       <div className="flex items-center gap-2">
         <Logo />
-        <div className="text-base hidden lg:block">| Room ID: {params?.room}</div>
+        {/* <div className="text-base hidden lg:block">| Room ID: {params?.room}</div> */}
         <Button variant="secondary" size="icon" onClick={onCopyInviteLink}>
           <CopyIcon size={16} />
         </Button>
@@ -65,10 +65,10 @@ export const BottomBar: React.FC<Props> = ({ meetingLink }) => {
           </div>
           <div className="px-4 pb-4 grid gap-4">
             <div className="text-muted-foreground text-xs">Share this meeting link with others you want in the meeting</div>
-            <div className="flex items-center gap-2 h-10 bg-zinc-200 rounded pl-3">
+            <div className="flex items-center gap-2 h-10 bg-gray-50 text-black underline rounded pl-3">
               <div className="flex-1 text-sm">{meetingLink}</div>
               <Button variant="link" size="icon" onClick={onCopyInviteLink}>
-                <CopyIcon size={16} />
+                <CopyIcon size={16} color="#000" />
               </Button>
             </div>
           </div>
