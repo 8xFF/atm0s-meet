@@ -10,10 +10,10 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
+import { NavChanel } from './nav-chanel'
 import { NavUser } from './nav-user'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const { menu } = useMenu()
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -34,8 +34,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {/*<NavMain items={[]} />*/}
-        {/*<NavSecondary items={[]} className="mt-auto" />*/}
+        <NavChanel />
+        {/* <NavMain items={menu.navMain} /> */}
+        {/* <NavSecondary items={menu.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
