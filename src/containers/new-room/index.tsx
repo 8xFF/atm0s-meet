@@ -24,7 +24,9 @@ import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import RoomManager from '@/lib/room'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useCopyToClipboard } from 'usehooks-ts'
 
 type Inputs = {
@@ -44,7 +46,6 @@ export const NewRoom: React.FC<Props> = () => {
   const [gatewayIndex, setGatewayIndex] = useState('0')
   const [isLoadingJoin, setIsLoadingJoin] = useState(false)
   const [isLoadingCreate, setIsLoadingCreate] = useState(false)
-  const [isMeetRoom, setIsMeetRoom] = useState(false)
   const [isCopy, setIsCopy] = useState(false)
   const [, onCopy] = useCopyToClipboard()
   const [roomSave, setRoomSave] = useState('')
@@ -67,8 +68,9 @@ export const NewRoom: React.FC<Props> = () => {
     await onGenerateToken(data.room)
     setIsLoadingCreate(false)
   }
+
   const onCreateMeetRoom: SubmitHandler<Inputs> = async (data) => {
-    setIsMeetRoom(true)
+    RoomManager.createRoom(data.room, 'RoomFake.' + data.room)
     setIsLoadingCreate(true)
     await generateToken(data.room, user?.id as string)
     setRoomSave(data.room)
@@ -124,48 +126,52 @@ export const NewRoom: React.FC<Props> = () => {
               >
                 Create new room
               </Button> */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="destructive" type="button" className="w-full">
-                    Create new room
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-72">
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      className="cursor-pointer"
-                      onClick={() =>
-                        onCreateMeetRoom({
-                          room: generateRandomString(8),
-                        })
-                      }
-                    >
-                      <Link />
-                      Create a meeting for later use
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="cursor-pointer"
-                      onClick={() =>
-                        onCreate({
-                          room: generateRandomString(8),
-                        })
-                      }
-                    >
-                      <Button
-                        loading={isLoadingCreate}
-                        type="button"
-                        className="h-full w-full justify-start p-0 font-normal"
-                        variant="ghost"
+              <Dialog>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="destructive" type="button" className="w-full">
+                      Create new room
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-72">
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem className="cursor-pointer">
+                        <DialogTrigger
+                          asChild
+                          onClick={() =>
+                            onCreateMeetRoom({
+                              room: generateRandomString(8),
+                            })
+                          }
+                        >
+                          <div className="flex flex-1 items-center gap-2 [&>svg]:size-4 [&>svg]:shrink-0">
+                            <Link />
+                            Create a meeting for later use
+                          </div>
+                        </DialogTrigger>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="cursor-pointer"
+                        onClick={() =>
+                          onCreate({
+                            room: generateRandomString(8),
+                          })
+                        }
                       >
-                        <Plus />
-                        Start an instant meeting
-                      </Button>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                        <Button
+                          loading={isLoadingCreate}
+                          type="button"
+                          className="h-full w-full justify-start p-0 font-normal"
+                          variant="ghost"
+                        >
+                          <Plus />
+                          Start an instant meeting
+                        </Button>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
-              <Dialog open={isMeetRoom}>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
                     <DialogTitle>Here is information on how to participate.</DialogTitle>
@@ -185,11 +191,6 @@ export const NewRoom: React.FC<Props> = () => {
                       </div>
                     )}
                   </div>
-                  <DialogFooter>
-                    <Button type="submit" variant={'outline'} onClick={() => setIsMeetRoom(false)}>
-                      Close
-                    </Button>
-                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               <div className="flex items-center justify-between gap-2">
