@@ -76,6 +76,13 @@ export const Meeting: React.FC<Props> = ({ host }) => {
       ],
       roomCode: (params?.room ?? '') as string,
     })
+
+    return () => {
+      addListUserToRoom({
+        users: [],
+        roomCode: (params?.room ?? '') as string,
+      })
+    }
   }, [addListUserToRoom, params?.room, remotePeers, user])
 
   return (
