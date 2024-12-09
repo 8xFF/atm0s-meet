@@ -5,17 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useSession } from '@atm0s-media-sdk/react-hooks'
 import { ChevronLeftIcon } from 'lucide-react'
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Actions } from './components'
 
 type Props = {
   onConnected: () => void
-  username?: RequestCookie
 }
 
-export const SettingsMedia: React.FC<Props> = ({ onConnected, username }) => {
+export const SettingsMedia: React.FC<Props> = ({ onConnected }) => {
   const router = useRouter()
   const params = useParams()
   const session = useSession()
@@ -44,7 +42,7 @@ export const SettingsMedia: React.FC<Props> = ({ onConnected, username }) => {
             <Logo />
           </CardTitle>
           <CardDescription>
-            <Username username={username} />
+            <Username />
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">

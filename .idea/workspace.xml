@@ -5,30 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dddb4ae-1b97-4a11-9efc-b3af929706d7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/room/components/bottom-bar-v2.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jotai/layout.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jotai/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/sidebar-right.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/providers/jotai-provider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/media/camera.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/media/camera.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/media/microphone.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/media/microphone.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/[room]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[room]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/media/peer-local.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/media/peer-local.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/media/peer-remote.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/media/peer-remote.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/media/screen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/media/screen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/new-room/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/new-room/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/username.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/username.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/room/components/grid-view-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/components/grid-view-layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/room/components/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/components/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/room/components/sidebar-view-layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/components/sidebar-view-layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/room/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/room/meeting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/meeting.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/app-provider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/app-provider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/providers/recoil-provider.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/recoils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/jotai/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/room/settings-media.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/settings-media.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/room/components/header.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,22 +45,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/tuanna/Workspace/8xFF/atm0s-meet&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/tuanna/Workspace/8xFF/atm0s-meet/node_modules/prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/tuanna/Workspace/8xFF/atm0s-meet/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/tuanna/Workspace/8xFF/atm0s-meet/src/containers/room/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/tuanna/Workspace/8xFF/atm0s-meet/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "/Users/tuanna/Workspace/8xFF/atm0s-meet/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/containers/room/components" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

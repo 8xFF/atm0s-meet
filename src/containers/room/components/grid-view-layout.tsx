@@ -1,26 +1,29 @@
 import { map, slice } from 'lodash'
 
 type Props = {
-  renderItem: (item: number) => React.ReactNode
+  renderItem?: (item: any) => React.ReactNode
   items: any[]
 }
 
-export const GridViewLayout: React.FC<Props> = ({ renderItem, items }) => {
-  const totalUser = items.length
-  const columns = Math.ceil(Math.sqrt(totalUser)) // Cột dựa trên căn bậc 2 của n
-  const rows = Math.ceil(totalUser / columns) // Hàng dựa trên việc chia đều số theo hàng
-  const leftoverItems = totalUser % columns // Tính số phần tử thừa
+const SLIDE_PER_VIEW = 25
+
+export const GridViewLayout: React.FC<Props> = ({ items, renderItem }) => {
+  const sliceUser = slice(items, 0, SLIDE_PER_VIEW)
+  const totalUser = sliceUser.length
+  const columns = Math.ceil(Math.sqrt(totalUser)) // The column is based on the square root of n
+  const rows = Math.ceil(totalUser / columns) // Rows are based on dividing numbers evenly in rows
+  const leftoverItems = totalUser % columns // Calculate the number of extra elements
   const checkFullRow = columns * rows === totalUser
 
   return (
     <div
-      className={'grid h-full max-h-[calc(100vh-0px)] w-full gap-4 duration-300'}
+      className={'grid h-full w-full grid-cols-1 gap-4 duration-300'}
       style={{
         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
       }}
     >
-      {map(slice(items, 0, 25), (item, index) => {
+      {map(sliceUser, (item, index) => {
         const isLeftover = index >= totalUser - leftoverItems
         const transformValue =
           leftoverItems > 0 && isLeftover
@@ -35,7 +38,7 @@ export const GridViewLayout: React.FC<Props> = ({ renderItem, items }) => {
               transform: checkFullRow ? 'unset' : transformValue,
             }}
           >
-            {renderItem(item)}
+            {renderItem?.(item) || item}
           </div>
         )
       })}

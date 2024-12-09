@@ -1,4 +1,6 @@
 export * from './actions'
 export * from './bottom-bar'
+export * from './bottom-bar-v2'
 export * from './grid-view-layout'
+export * from './header'
 export * from './sidebar-view-layout'

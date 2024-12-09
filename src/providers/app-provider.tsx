@@ -1,6 +1,7 @@
 'use client'
 
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from 'sonner'
+
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { JotaiProvider } from '@/providers/jotai-provider'
 import { ReactQueryProvider } from '@/providers/react-query-provider'

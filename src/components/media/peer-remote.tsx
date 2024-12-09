@@ -1,25 +1,27 @@
 import { VideoRemote } from '@/components'
+import { Button } from '@/components/ui/button'
 import { useAudioMixerSpeaking } from '@/hooks'
+import { peerPinnedAtom } from '@/jotai/peer'
 import { cn } from '@/lib'
 import { RemotePeer, RemoteTrack, useRemoteVideoTracks } from '@atm0s-media-sdk/react-hooks'
+import { useAtom } from 'jotai'
 import { find, isEmpty } from 'lodash'
-import { useEffect } from 'react'
+import { Pin, PinOff } from 'lucide-react'
 
 type Props = {
   peer: RemotePeer
-  setVideoScreen?: (v: any) => void
 }
 
-export const PeerRemote: React.FC<Props> = ({ peer, setVideoScreen }) => {
+export const PeerRemote: React.FC<Props> = ({ peer }) => {
   const remote_videos = useRemoteVideoTracks(peer.peer)
-  console.log('peer', peer)
   const { speaking } = useAudioMixerSpeaking(peer.peer)
   const video_main = find(remote_videos, (t) => t.track === 'video_main')
   const video_screen = find(remote_videos, (t) => t.track === 'video_screen')
-
-  useEffect(() => {
-    setVideoScreen?.(video_screen)
-  }, [setVideoScreen, video_screen])
+  const [peerPinned, setPeerPinned] = useAtom(peerPinnedAtom)
+  const isPinned = peerPinned?.peer === peer?.peer
+  const onPin = () => {
+    setPeerPinned(isPinned ? null : peer)
+  }
 
   return (
     <div
@@ -27,8 +29,17 @@ export const PeerRemote: React.FC<Props> = ({ peer, setVideoScreen }) => {
         'ring-4 ring-green-500 ring-opacity-70': speaking,
       })}
     >
+      <Button
+        onClick={onPin}
+        variant={!isPinned ? 'outline' : 'blue'}
+        size="icon"
+        className={'absolute right-2 top-2 z-[2] h-7 w-7 text-foreground'}
+      >
+        {isPinned ? <PinOff size={16} /> : <Pin size={16} />}
+      </Button>
+
       <div className="absolute bottom-3 left-2 z-[1] flex items-center gap-1">
-        <div className="rounded-full bg-slate-950 bg-opacity-30 px-2 py-0.5 text-sm text-white">{peer.peer}</div>
+        <div className="truncate rounded-full bg-slate-950 bg-opacity-30 px-2 py-0.5 text-sm text-white">{peer.peer}</div>
       </div>
       {!isEmpty(remote_videos) ? (
         <>
@@ -39,7 +50,7 @@ export const PeerRemote: React.FC<Props> = ({ peer, setVideoScreen }) => {
           )}
         </>
       ) : (
-        <div className="flex aspect-square max-h-28 w-1/3 max-w-28 items-center justify-center rounded-full bg-zinc-500 text-3xl uppercase text-white">
+        <div className="flex aspect-square max-h-40 w-1/3 max-w-40 items-center justify-center rounded-full bg-zinc-500 text-[calc(200%)] uppercase text-white">
           {peer.peer?.[0]}
         </div>
       )}

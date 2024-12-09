@@ -2,17 +2,17 @@
 
 import { AudioMixerPlayer, PeerLocal, PeerRemote } from '@/components'
 import { Button } from '@/components/ui/button'
-import { BottomBarV2 } from '@/containers/room/components/bottom-bar-v2'
-import { Header } from '@/layouts/header'
+import { peerPinnedAtom } from '@/jotai/peer'
 import { useRemotePeers, useRoom } from '@atm0s-media-sdk/react-hooks'
 import { useMouse } from '@uidotdev/usehooks'
-import { filter, map } from 'lodash'
+import { useAtomValue } from 'jotai'
+import { filter, find, map } from 'lodash'
 import { CopyIcon, XIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { useCopyToClipboard } from 'usehooks-ts'
-import { GridViewLayout } from './components'
+import { BottomBarV2, GridViewLayout, Header, SidebarViewLayout } from './components'
 
 type Props = {
   host: string | null
@@ -22,18 +22,24 @@ export const Meeting: React.FC<Props> = ({ host }) => {
   const params = useParams()
   const room = useRoom()
   const remotePeers = useRemotePeers()
-  // const streamVideoScreen = useDeviceStream('video_screen')
   const meetingLink = `https://${host}/invite/${params?.room}`
   const [, onCopy] = useCopyToClipboard()
   const [isCreateNewRoom, setIsCreateNewRoom] = useState(true)
   const [mouse, containerRef] = useMouse<any>()
-
   const widthContent = containerRef?.current?.clientWidth
   const heightContent = containerRef?.current?.clientHeight
+  const peerPinned = useAtomValue(peerPinnedAtom)
 
-  const xOffsetMouse = mouse.elementX > 0 && mouse.elementX <= widthContent
-  const yOffsetMouse = mouse.elementY > 0 && mouse.elementY <= heightContent
-  const isHoverContent = xOffsetMouse && yOffsetMouse
+  const checkPeerPinned = useMemo(() => {
+    if (peerPinned?.peer === room?.peer) return { check: true, peer: 'local', peerItem: room }
+    const findRemotePeer = find(remotePeers, (peer) => peer.peer === peerPinned?.peer)
+    return findRemotePeer
+      ? { check: true, peer: 'remote', peerItem: findRemotePeer }
+      : { check: false, peer: null, peerItem: null }
+  }, [peerPinned?.peer, room, remotePeers])
+
+  const isHoverContent =
+    mouse.elementX > 0 && mouse.elementX <= widthContent && mouse.elementY > 0 && mouse.elementY <= heightContent
 
   const onCopyInviteLink = () => {
     onCopy(meetingLink as string).then(() => {
@@ -41,45 +47,53 @@ export const Meeting: React.FC<Props> = ({ host }) => {
     })
   }
 
-  // const [videoScreen, setVideoScreen] = useState<any>()
   const peerLocal = useMemo(() => <PeerLocal />, [])
-  //
-  // const peerScreenShare = useMemo(() => {
-  //   if (!videoScreen) return peerLocal
-  //   const findScreenShare: any = find(remotePeers, (p: any) => p.peer === videoScreen?.peer)
-  //   return <PeerRemote peer={findScreenShare} />
-  // }, [peerLocal, remotePeers, videoScreen])
+
+  const mainPeerScreen = useMemo(() => {
+    if (checkPeerPinned.check && checkPeerPinned.peer === 'remote') {
+      const peer: any = checkPeerPinned.peerItem
+      return <PeerRemote peer={peer} />
+    }
+    return peerLocal
+  }, [checkPeerPinned, peerLocal])
+
+  const filterRemotePeers = useMemo(() => filter(remotePeers, (p) => p.peer != room?.peer), [remotePeers, room?.peer])
 
   const peerRemoteMixerAudio = useMemo(() => {
-    const filterRemotePeers = filter(remotePeers, (p) => p.peer != room?.peer)
-    const mapRemotePeers = map(filterRemotePeers, (p) => <PeerRemote key={p.peer} peer={p} />)
-
-    // if (videoScreen) return [peerLocal, ...mapRemotePeers]
-
+    let mapRemotePeers = []
+    if (checkPeerPinned.check && checkPeerPinned.peer === 'remote') {
+      const peerRemote: any = filter(filterRemotePeers, (p) => p.peer != checkPeerPinned?.peerItem?.peer)
+      const peerRemoteScreen = map(peerRemote, (p) => <PeerRemote key={p.peer} peer={p} />)
+      mapRemotePeers = [peerLocal, ...peerRemoteScreen]
+    } else {
+      mapRemotePeers = map(filterRemotePeers, (p) => <PeerRemote key={p.peer} peer={p} />)
+    }
     return mapRemotePeers
-  }, [remotePeers, room?.peer])
+  }, [checkPeerPinned.check, checkPeerPinned.peer, checkPeerPinned?.peerItem?.peer, filterRemotePeers, peerLocal])
 
   return (
     <div
       ref={containerRef}
-      className="relative flex h-full w-full items-start justify-center overflow-hidden bg-foreground px-4 py-16"
+      className="relative flex h-full w-full items-start justify-center overflow-hidden bg-foreground px-4 pt-[60px]"
     >
       {isHoverContent && <Header meetingLink={meetingLink} />}
-      <div className="flex h-full w-full flex-col">
-        <GridViewLayout items={[peerLocal, ...(peerRemoteMixerAudio || [])]} renderItem={(i) => i} />
 
-        {/*{streamVideoScreen || videoScreen ? (*/}
-        {/*  <SidebarViewLayout items={[peerScreenShare, ...(peerRemoteMixerAudio || [])]} renderItem={(i) => i} />*/}
-        {/*) : (*/}
-        {/*  <GridViewLayout items={[peerLocal, ...(peerRemoteMixerAudio || [])]} renderItem={(i) => i} />*/}
-        {/*)}*/}
+      <div className="flex h-full max-h-[calc(100vh-168px)] w-full flex-col">
+        {!checkPeerPinned?.check ? (
+          <GridViewLayout items={[mainPeerScreen, ...(peerRemoteMixerAudio || [])]} />
+        ) : (
+          <SidebarViewLayout
+            showButtonExpand={isHoverContent}
+            mainPeerScreen={mainPeerScreen}
+            remotePeerScreens={[...(peerRemoteMixerAudio || [])]}
+          />
+        )}
         <AudioMixerPlayer />
-        {/*<BottomBar meetingLink={meetingLink} />*/}
       </div>
       {isHoverContent && <BottomBarV2 />}
 
       {isCreateNewRoom && (
-        <div className="absolute bottom-24 left-8 w-[360px] rounded-xl bg-muted">
+        <div className="absolute bottom-24 left-8 z-[2] w-[360px] rounded-xl bg-muted">
           <div className="flex items-center justify-between py-2 pl-4 pr-3">
             <div>Your meeting&apos;s ready</div>
             <Button className={'h-7 w-7'} variant={'ghost'} onClick={() => setIsCreateNewRoom(false)}>
