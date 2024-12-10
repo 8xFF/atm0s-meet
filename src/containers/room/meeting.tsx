@@ -3,13 +3,15 @@
 import { AudioMixerPlayer, PeerLocal, PeerRemote } from '@/components'
 import { Button } from '@/components/ui/button'
 import { peerPinnedAtom } from '@/jotai/peer'
+import { RoomStore } from '@/stores/room'
 import { useRemotePeers, useRoom } from '@atm0s-media-sdk/react-hooks'
+import { useUser } from '@clerk/nextjs'
 import { useMouse } from '@uidotdev/usehooks'
-import { useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { filter, find, map } from 'lodash'
 import { CopyIcon, XIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { useCopyToClipboard } from 'usehooks-ts'
 import { BottomBarV2, GridViewLayout, Header, SidebarViewLayout } from './components'
@@ -26,6 +28,9 @@ export const Meeting: React.FC<Props> = ({ host }) => {
   const [, onCopy] = useCopyToClipboard()
   const [isCreateNewRoom, setIsCreateNewRoom] = useState(true)
   const [mouse, containerRef] = useMouse<any>()
+  const { user } = useUser()
+  const addListUserToRoom = useSetAtom(RoomStore.addListUserToRoom)
+
   const widthContent = containerRef?.current?.clientWidth
   const heightContent = containerRef?.current?.clientHeight
   const peerPinned = useAtomValue(peerPinnedAtom)
@@ -70,6 +75,27 @@ export const Meeting: React.FC<Props> = ({ host }) => {
     }
     return mapRemotePeers
   }, [checkPeerPinned.check, checkPeerPinned.peer, checkPeerPinned?.peerItem?.peer, filterRemotePeers, peerLocal])
+
+  useEffect(() => {
+    addListUserToRoom({
+      users: [
+        {
+          gmail: user?.emailAddresses?.[0]?.emailAddress as string,
+          name: user?.fullName ?? '',
+          avatar: user?.imageUrl as string,
+        },
+        ...map(remotePeers, (item) => ({ gmail: item.peer, name: item.peer, avatar: '' })),
+      ],
+      roomCode: (params?.room ?? '') as string,
+    })
+
+    return () => {
+      addListUserToRoom({
+        users: [],
+        roomCode: (params?.room ?? '') as string,
+      })
+    }
+  }, [addListUserToRoom, params?.room, remotePeers, user])
 
   return (
     <div
